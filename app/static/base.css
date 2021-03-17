@@ -1,0 +1,20 @@
+.height70 {
+    height: 50vh;
+}
+
+.gantt-container {
+    height: 80%;
+}
+
+.gantt-container .popup-wrapper {
+    width: 200px;
+    background: #fff;
+    border: 1px solid black;
+}
+
+.details-container {
+    background: #fff;
+    display: inline-block;
+    padding: 12px;
+    color: black;
+}

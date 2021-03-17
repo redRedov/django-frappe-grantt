@@ -1,0 +1,8 @@
+.idea/
+.venv/
+.vscode
+__pycache__/
+db.sqlite3
+staticfiles/
+static/admin/
+static/ckeditor/
