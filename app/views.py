@@ -1,4 +1,6 @@
 import json
+
+from django.db.models import Max, Min
 from django.views import generic
 from django.shortcuts import get_object_or_404
 
@@ -35,6 +37,8 @@ class IndexView(generic.TemplateView):
         if project_pk:
             context['project'] = get_object_or_404(Project, pk=project_pk)
             context['project_pk'] = int(project_pk)
-            context['tasks'] = json.dumps([self.processing(t) for t in tasks])
+            context['tasks'] = [self.processing(t) for t in tasks.filter(parents=None)]
+            context['tasks'] += [self.processing(t) for t in tasks.exclude(parents=None)]
+            context['tasks'] = json.dumps(context['tasks'])
         return context
 
