@@ -21,7 +21,7 @@ class IndexView(generic.TemplateView):
             'duration': task.duration,
         }
 
-        children_pks = [ch.pk for ch in task.get_children()]
+        children_pks = [ch.pk for ch in task.children.all()]
         new_task['dependencies'] = ','.join([str(pk) for pk in children_pks])
         return new_task
 

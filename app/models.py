@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.db import models
 from django.db.models import F, Func, Sum
 from django.db.models import DurationField, ExpressionWrapper, F
-from mptt.models import MPTTModel, TreeForeignKey
+from mptt.models import MPTTModel, TreeForeignKey, TreeManyToManyField
 
 
 class Project(models.Model):
@@ -41,14 +41,14 @@ class Project(models.Model):
         return dates[-1] if dates else ''
 
 
-class Task(MPTTModel):
+class Task(models.Model):
     title = models.CharField('Название', max_length=200)
     start = models.DateField('Старт')
     duration = models.PositiveIntegerField('Количество часов')
     employee_count = models.PositiveIntegerField('Количество работников')
     salary = models.PositiveIntegerField('Ставка')
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='Проект', related_name='tasks')
-    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
+    parents = models.ManyToManyField('self', symmetrical=False, blank=True, related_name='children')
 
     class Meta:
         verbose_name = 'Задача'
